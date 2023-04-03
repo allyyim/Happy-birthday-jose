@@ -95,7 +95,7 @@ var dialogue = [
     },
     {
         id: "storyIntro4",
-        text: "And so he appeared... to take Cole to another land. The land of her dreams!",
+        text: "And so he appeared... to take Cole to another land. The land of his dreams!",
         activate:function(){loadRoom(findRoom(0,2), 1,1);player.elem.attr("data-direction","awake");player.progress.sawIntro = true;}
     },
     {
