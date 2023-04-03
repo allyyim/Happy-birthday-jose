@@ -1,4 +1,3 @@
-<p align="center"><img src="https://xanderfrangos.com/media/previews/rei-adventure.jpg" width="680" /></p>
 
 # Cole's Adventure
 *An HTML5-based game, made in 2023 for the best person ever's birthday.* 
