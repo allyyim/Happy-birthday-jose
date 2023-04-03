@@ -115,7 +115,7 @@ var dialogue = [
     },
     {
         id: "credits",
-        text: "Programming & Bad Jokes<br>Xander Frangos<br><br>Music<br>Dani Sweet<br><br>Star / Birthday Boy<br>Cole Fieler-Frangos<br><br>Professional Lapdog<br>Cosmo",
+        text: "Programming & Bad Jokes<br>Alison Yimbr><br>Music<br>Dani Sweet<br><br>Star / Birthday Boy<br>Cole Smith<br><br>My 11:11 Wish",
         next:"credits2",
         activate:function(){exitDialogue();}
     },
