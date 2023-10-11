@@ -3,7 +3,7 @@
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Jose's Adventure!</title>
-        <link rel="shortcut icon" href="favicon.ico">
+        <link rel="shortcut icon" href="jose.ico">
         <link rel="icon" sizes="300x300" href="icon-jose.png">
         <link rel="stylesheet" href="css/main.css">
         <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700|VT323' rel='stylesheet' type='text/css'>
