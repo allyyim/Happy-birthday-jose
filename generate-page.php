@@ -4,7 +4,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Rei's Adventure!</title>
         <link rel="shortcut icon" href="favicon.ico">
-        <link rel="icon" sizes="300x300" href="icon-300x300.png">
+        <link rel="icon" sizes="300x300" href="icon-300.png">
         <link rel="stylesheet" href="css/main.css">
         <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700|VT323' rel='stylesheet' type='text/css'>
         <script src="js/libs.js"></script>
