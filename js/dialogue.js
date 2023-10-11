@@ -889,7 +889,7 @@ var dialogue = [{
                 next: "excaliburWho"
             },
             {
-                text: "Newt",
+                text: "Rosie",
                 next: "excaliburWho"
             },
             {
