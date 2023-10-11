@@ -131,7 +131,7 @@ var dialogue = [{
     },
     {
         id: "credits",
-        text: "Programming & Bad Jokes<br>Alison Yim<br><br>Star / Birthday Boy<br>Jose Smith<br><br>My 11:11 Wish",
+        text: "Programming & Bad Jokes<br>Alison Yim<br><br>Star / Birthday Boy<br>Jose Robles<br><br>My 11:11 Wish",
         next: "credits2",
         activate: function() { exitDialogue(); }
     },
