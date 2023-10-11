@@ -1,5 +1,4 @@
-var dialogue = [
-    {
+var dialogue = [{
         id: "test1",
         text: '"My mother was a potato and so was her mother, and so on and so forth..."',
         next: "test2"
@@ -8,22 +7,21 @@ var dialogue = [
     {
         id: "test2",
         text: '"...you get what I\'m saying?"',
-        next:"test3"
+        next: "test3"
 
     },
     {
         id: "test3",
-        choices:[
-            {
-                text:"Close"   
+        choices: [{
+                text: "Close"
             },
             {
-                text:"Close and beep the console",
-                activate:function(){console.log("beep!");}
+                text: "Close and beep the console",
+                activate: function() { console.log("beep!"); }
             },
             {
-                text:"show these choices again",
-                next:"test3"
+                text: "show these choices again",
+                next: "test3"
             },
         ],
 
@@ -37,93 +35,115 @@ var dialogue = [
     },
     {
         id: "campusEdgeChoice",
-        choices: [
-            {
-                text:"[Turn back]"
+        choices: [{
+                text: "[Turn back]"
             },
             {
-                text:"[Venture into the Woods]",
-                next:"campusEdgeEnd1"
+                text: "[Venture into the Woods]",
+                next: "campusEdgeEnd1"
             }
         ]
     },
     {
         id: "campusEdgeEnd1",
         text: "You run into a crew of bearded fairies that beat you up.",
-        next:"gameOver"
+        next: "gameOver"
     },
     {
         id: "gameOver",
         text: "Game over",
-        activate:function(){loadRoom(findRoom(-1,-1), 1,1);showDialogue("titlebuffer");}
+        activate: function() {
+            loadRoom(findRoom(-1, -1), 1, 1);
+            showDialogue("titlebuffer");
+        }
     },
     {
         id: "titleScreen",
-        choices: [
-            {
-                text:"Continue",
-                activate:function(){loadGame();if(player.progress.sawIntro) loadRoom(findRoom(0,2),1,1); else loadRoom(findRoom(-2,-1),1,1);}
+        choices: [{
+                text: "Continue",
+                activate: function() {
+                    loadGame();
+                    if (player.progress.sawIntro) loadRoom(findRoom(0, 2), 1, 1);
+                    else loadRoom(findRoom(-2, -1), 1, 1);
+                }
             },
             {
-                text:"New Game",
-                activate:function(){player = playerNew; loadRoom(findRoom(-2,-1),1,1);}
-            }
-            ,
+                text: "New Game",
+                activate: function() {
+                    player = playerNew;
+                    loadRoom(findRoom(-2, -1), 1, 1);
+                }
+            },
             {
-                text:"Credits",
+                text: "Credits",
 
-                activate:function(){reloadRoomWithState(1);showDialogue("credits");showDialogue("creditsbuffer");}
+                activate: function() {
+                    reloadRoomWithState(1);
+                    showDialogue("credits");
+                    showDialogue("creditsbuffer");
+                }
             }
         ]
     },
     {
         id: "storyIntro1",
-        text: "Before falling asleep one evening, Cole wished to be taken to another world... ",
-        next:"storyIntro2",
-        activate:function(){player.elem.attr("data-direction","sleep")}
+        text: "Before falling asleep one evening, Jose wished to be taken to another world... ",
+        next: "storyIntro2",
+        activate: function() { player.elem.attr("data-direction", "sleep") }
     },
     {
         id: "storyIntro2",
         text: "A world of magic, castles, and fantastical creatures...",
-        next:"storyIntro3"
+        next: "storyIntro3"
     },
     {
         id: "storyIntro3",
         text: "Little did he know, but the Goblin King and his magificent bulge had been listening for his wishes.",
-        next:"storyIntro4",
-        activate:function(){reloadRoomWithState(1);player.elem.attr("data-direction","sleep");}
+        next: "storyIntro4",
+        activate: function() {
+            reloadRoomWithState(1);
+            player.elem.attr("data-direction", "sleep");
+        }
     },
     {
         id: "storyIntro4",
-        text: "And so he appeared... to take Cole to another land. The land of his dreams!",
-        activate:function(){loadRoom(findRoom(0,2), 1,1);player.elem.attr("data-direction","awake");player.progress.sawIntro = true;}
+        text: "And so he appeared... to take Jose to another land. The land of his dreams!",
+        activate: function() {
+            loadRoom(findRoom(0, 2), 1, 1);
+            player.elem.attr("data-direction", "awake");
+            player.progress.sawIntro = true;
+        }
     },
     {
         id: "creditsbuffer",
         text: "",
-        next:"credits"
+        next: "credits"
     },
     {
         id: "titlebuffer",
         text: "",
-        next:"titleScreen"
+        next: "titleScreen"
     },
     {
         id: "newbuffer",
         text: "",
-        next:"storyIntro1"
+        next: "storyIntro1"
     },
     {
         id: "credits",
-        text: "Programming & Bad Jokes<br>Alison Yim<br><br>Music<br>Dani Sweet<br><br>Star / Birthday Boy<br>Cole Smith<br><br>My 11:11 Wish",
-        next:"credits2",
-        activate:function(){exitDialogue();}
+        text: "Programming & Bad Jokes<br>Alison Yim<br><br>Star / Birthday Boy<br>Jose Smith<br><br>My 11:11 Wish",
+        next: "credits2",
+        activate: function() { exitDialogue(); }
     },
     {
         id: "credits2",
-        text: "All Sprites are taken from The Legend Of Zelda: Oracle of Season & The Legend Of Zelda: Oracle of Ages, property of Nintendo & Capcom<br><br>Awesome Gameboy mockup by BLUEamnesiac @ deviantart<br><br>I love you, Cole! <3",
-        next:"titleScreen",
-        activate:function(){exitDialogue();reloadRoomWithState(0);setTimeout(function(){showDialogue("titleScreen")},16)}
+        text: "All Sprites are taken from The Legend Of Zelda: Oracle of Season & The Legend Of Zelda: Oracle of Ages, property of Nintendo & Capcom<br><br>Awesome Gameboy mockup by BLUEamnesiac @ deviantart<br><br>My boyfriend! <3",
+        next: "titleScreen",
+        activate: function() {
+            exitDialogue();
+            reloadRoomWithState(0);
+            setTimeout(function() { showDialogue("titleScreen") }, 16)
+        }
     },
 
     {
@@ -137,13 +157,12 @@ var dialogue = [
     },
     {
         id: "bedChoice1",
-        choices: [
-            {
-                text:"[Leave it alone]"
+        choices: [{
+                text: "[Leave it alone]"
             },
             {
-                text:"But I'm tired...",
-                next:"bedChoice2"
+                text: "But I'm tired...",
+                next: "bedChoice2"
             }
         ]
     },
@@ -155,7 +174,7 @@ var dialogue = [
     {
         id: "bookshelf",
         text: "These books are coated in dust!",
-        next:"bookshelf2"
+        next: "bookshelf2"
     },
     {
         id: "bookshelf2",
@@ -168,17 +187,16 @@ var dialogue = [
     {
         id: "dresser",
         text: "It wouldn't be very nice to rummage through someone's dresser...",
-        next:"dresserChoice"
+        next: "dresserChoice"
     },
     {
         id: "dresserChoice",
-        choices: [
-            {
-                text:"[Leave it alone]"
+        choices: [{
+                text: "[Leave it alone]"
             },
             {
-                text:"[Do it anyway]",
-                next:"dresserChoice2"
+                text: "[Do it anyway]",
+                next: "dresserChoice2"
             }
         ]
     },
@@ -200,15 +218,14 @@ var dialogue = [
         id: "bfIntro",
         text: "\"Hey there! I don't remember meeting you before.\"",
         next: "bfChoices1"
-    },{
+    }, {
         id: "bfChoices1",
-        choices:[
-            {
-                text:"What is this place?",
-                next:"bfWhat1",
+        choices: [{
+                text: "What is this place?",
+                next: "bfWhat1",
             },
             {
-                text:"[Walk away]",
+                text: "[Walk away]",
             },
         ]
     },
@@ -216,19 +233,18 @@ var dialogue = [
         id: "bfWhat1",
         text: "\"You don't know? You're at the Bogwarts School for Exceptional Pigeons.\"",
         next: "bfChoices2"
-    },{
+    }, {
         id: "bfChoices2",
-        choices:[
-            {
-                text:"Like Hogwarts? Is Harry Potter here?",
-                next:"bfWhatHP1",
+        choices: [{
+                text: "Like Hogwarts? Is Harry Potter here?",
+                next: "bfWhatHP1",
             },
             {
-                text:"Hold on, pigeons?",
-                next:"bfWhatP1",
+                text: "Hold on, pigeons?",
+                next: "bfWhatP1",
             },
             {
-                text:"[Walk away]",
+                text: "[Walk away]",
             },
         ]
     },
@@ -254,13 +270,12 @@ var dialogue = [
     },
     {
         id: "bfChoices3",
-        choices:[
-            {
-                text:"I don't see any birds...",
-                next:"bfWhatP3",
+        choices: [{
+                text: "I don't see any birds...",
+                next: "bfWhatP3",
             },
             {
-                text:"[Walk away]",
+                text: "[Walk away]",
             },
         ]
     },
@@ -300,15 +315,14 @@ var dialogue = [
         id: "lokiIntro",
         text: "*horse noises*",
         next: "lokiChoices"
-    },{
+    }, {
         id: "lokiChoices",
-        choices:[
-            {
-                text:"[Walk away]",
+        choices: [{
+                text: "[Walk away]",
             },
             {
-                text:"Neigh!",
-                next:"lokiTalk1",
+                text: "Neigh!",
+                next: "lokiTalk1",
             },
         ]
     },
@@ -319,17 +333,16 @@ var dialogue = [
     },
     {
         id: "lokiChoices2",
-        choices:[
-            {
-                text:"A talking horse?!",
-                next:"lokiTalk2",
+        choices: [{
+                text: "A talking horse?!",
+                next: "lokiTalk2",
             },
             {
-                text:"Shut up, horse.",
-                next:"lokiMad",
+                text: "Shut up, horse.",
+                next: "lokiMad",
             },
             {
-                text:"[Walk away]",
+                text: "[Walk away]",
             },
 
         ]
@@ -345,18 +358,17 @@ var dialogue = [
     },
     {
         id: "lokiChoices3",
-        choices:[
-            {
-                text:"Sure, horse.",
-                next:"lokiMad",
+        choices: [{
+                text: "Sure, horse.",
+                next: "lokiMad",
             },
             {
-                text:"A horse god?",
-                next:"lokiTalk3",
+                text: "A horse god?",
+                next: "lokiTalk3",
             },
 
             {
-                text:"[Walk away]",
+                text: "[Walk away]",
             },
 
         ]
@@ -383,19 +395,18 @@ var dialogue = [
     },
     {
         id: "lokiChoice4",
-        choices:[
-            {
-                text:"Yes",
-                next:"lokiTalk7",
+        choices: [{
+                text: "Yes",
+                next: "lokiTalk7",
             },
             {
-                text:"No",
-                next:"lokiMad",
+                text: "No",
+                next: "lokiMad",
             },
 
             {
-                text:"Shut up, horse.",
-                next:"lokiMad",
+                text: "Shut up, horse.",
+                next: "lokiMad",
             },
 
         ]
@@ -414,23 +425,22 @@ var dialogue = [
         id: "lokiTalk9",
         text: '[Attic key acqured!]',
         next: "lokiChoice5",
-        activate:function(){player.inventory.atticKey = true;}
+        activate: function() { player.inventory.atticKey = true; }
     },
     {
         id: "lokiChoice5",
-        choices:[
-            {
-                text:"I'm on it!",
-                next:"lokiThanks",
+        choices: [{
+                text: "I'm on it!",
+                next: "lokiThanks",
             },
             {
-                text:"Why not go up there yourself?",
-                next:"lokiExplain",
+                text: "Why not go up there yourself?",
+                next: "lokiExplain",
             },
 
             {
-                text:"Shut up, horse.",
-                next:"lokiMad",
+                text: "Shut up, horse.",
+                next: "lokiMad",
             },
 
         ]
@@ -463,13 +473,12 @@ var dialogue = [
     },
     {
         id: "belleChoice",
-        choices:[
-            {
-                text:"Who are you?",
-                next:"belleExplain1",
+        choices: [{
+                text: "Who are you?",
+                next: "belleExplain1",
             },
             {
-                text:"Okay. Bye.",
+                text: "Okay. Bye.",
             },
 
         ]
@@ -482,7 +491,7 @@ var dialogue = [
     {
         id: "belleExplain2",
         text: '"Now, please leave before I have to call the headmaster. I don\'t appreciate students snooping around on the weekends."',
-        next:"belleChoice"
+        next: "belleChoice"
     },
 
 
@@ -506,35 +515,33 @@ var dialogue = [
     },
     {
         id: "beastChoice1",
-        choices:[
-            {
-                text:"Who are you?",
-                next:"beastExplain1",
+        choices: [{
+                text: "Who are you?",
+                next: "beastExplain1",
             },
             {
-                text:"That's a strange way of saying \"Hello\".",
-                next:"beastIntro2"
+                text: "That's a strange way of saying \"Hello\".",
+                next: "beastIntro2"
             },
             {
-                text:"I'll help you.",
-                next:"beastHelp1",
+                text: "I'll help you.",
+                next: "beastHelp1",
             },
             {
-                text:"[Walk away]",
-                next:"beastNo"
+                text: "[Walk away]",
+                next: "beastNo"
             },
 
         ]
     },
     {
         id: "beastChoice1alt",
-        choices:[
-            {
-                text:"Who are you?",
-                next:"beastExplain1",
+        choices: [{
+                text: "Who are you?",
+                next: "beastExplain1",
             },
             {
-                text:"[Walk away]",
+                text: "[Walk away]",
             },
 
         ]
@@ -556,31 +563,30 @@ var dialogue = [
     {
         id: "beastHelp3",
         text: '"The stairs are covered by some planks on the floor. Just move them aside. Please hurry!"',
-        activate:function(){player.progress.canGoDownstairs = true}
+        activate: function() { player.progress.canGoDownstairs = true }
     },
     {
         id: "beastExplain1",
         text: '"I was once the headmaster of this wonderful school. And now..."',
-        next:"beastExplainChoice"
+        next: "beastExplainChoice"
     },
     {
         id: "beastExplainChoice",
-        choices:[
-            {
-                text:"...you're hideous.",
-                next:"beastExplain1a",
+        choices: [{
+                text: "...you're hideous.",
+                next: "beastExplain1a",
             },
             {
-                text:"...you're a monster.",
-                next:"beastExplain1a",
+                text: "...you're a monster.",
+                next: "beastExplain1a",
             },
             {
-                text:"...you're cursed.",
-                next:"beastExplain1b",
+                text: "...you're cursed.",
+                next: "beastExplain1b",
             },
             {
-                text:"...I'm bored. Bye!",
-                next:"beastNo",
+                text: "...I'm bored. Bye!",
+                next: "beastNo",
             },
 
         ]
@@ -588,39 +594,43 @@ var dialogue = [
     {
         id: "beastExplain1a",
         text: '"A little sympathy would be appreciated, asshole."',
-        choice:"beastExplain2"
+        choice: "beastExplain2"
     },
     {
         id: "beastExplain1b",
         text: '"Yes, unfortunately. Trapped like an animal... as an animal. She does this to everyone!"',
-        next:"beastExplain2"
+        next: "beastExplain2"
     },
     {
         id: "beastExplain2",
         text: '"Belle..."',
-        next:"beastExplain3"
+        next: "beastExplain3"
     },
     {
         id: "beastExplain3",
         text: '"She promised it wasn\'t permenant! Why did I think I could trust her?"',
-        next:"beastExplain4"
+        next: "beastExplain4"
     },
     {
         id: "beastExplain4",
         text: '"I did ask for this... it\'s just not what I\'d expcted."',
-        next:"beastExplain5"
+        next: "beastExplain5"
     },
     {
         id: "beastExplain5",
         text: '"The only time I see the outside world is through the downstairs windows, as I\'m brought to the basement."',
-        next:"beastExplain6"
+        next: "beastExplain6"
     },
     {
         id: "beastExplain6",
         text: '"..."',
-        activate:function(){exitDialogue();if(player.progress.canGoDownstairs) showDialogue("beastChoice1alt"); else showDialogue("beastChoice1");}
+        activate: function() {
+            exitDialogue();
+            if (player.progress.canGoDownstairs) showDialogue("beastChoice1alt");
+            else showDialogue("beastChoice1");
+        }
     },
-    
+
     {
         id: "beastHappy",
         text: '"You found it! Quick give me that rose!"',
@@ -629,7 +639,11 @@ var dialogue = [
     {
         id: "beastHappy2",
         text: '[He swipes the rose from your hands and shreds it with his claws.]',
-        activate:function(){reloadRoomWithState(1); player.progress.roseDestroyed; setRoomState(findRoom(1,0), 1);}
+        activate: function() {
+            reloadRoomWithState(1);
+            player.progress.roseDestroyed;
+            setRoomState(findRoom(1, 0), 1);
+        }
     },
     {
         id: "beastNormal",
@@ -664,21 +678,20 @@ var dialogue = [
     {
         id: "jukebox1",
         text: '"Want to hear a rockin\' tune? I take requests."',
-        next:"jukeboxChoice"
+        next: "jukeboxChoice"
     },
     {
         id: "jukeboxChoice",
-        choices: [
-            {
-                text:"Let It Go",
-                next:"jukeboxLIG"
+        choices: [{
+                text: "Let It Go",
+                next: "jukeboxLIG"
             },
             {
-                text:"What's New Pussycat?",
-                next:"jukeboxWNP"
+                text: "What's New Pussycat?",
+                next: "jukeboxWNP"
             },
             {
-                text:"[Walk away]"  
+                text: "[Walk away]"
             },
         ],
     },
@@ -689,97 +702,103 @@ var dialogue = [
     {
         id: "jukeboxWNP",
         text: '"...what\'s new, Pussycat? Whoa, whoa!"',
-        next:"jukeboxWNP2"
+        next: "jukeboxWNP2"
     },
     {
         id: "jukeboxWNP2",
         text: '"What\'s new, Pussycat? Whoa, whoa!"',
-        next:"jukeboxWNP3"
+        next: "jukeboxWNP3"
     },
     {
         id: "jukeboxWNP3",
         text: '"Pussycat, Pussycat, I\'ve got flowers<br>And lots of hours"',
-        next:"jukeboxWNP4"
+        next: "jukeboxWNP4"
     },
     {
         id: "jukeboxWNP4",
         text: '"To spend with you.<br>So go and powder your cute little pussycat nose!"',
-        next:"jukeboxWNP5"
+        next: "jukeboxWNP5"
     },
     {
         id: "jukeboxWNP5",
         text: '"Pussycat, Pussycat, I love you<br>Yes, I do!<br>You and your pussycat nose!"',
-        next:"jukeboxWNP6"
+        next: "jukeboxWNP6"
     },
     {
         id: "jukeboxWNP6",
         text: '"...what\'s new, Pussycat? Whoa, whoa!"',
-        next:"jukeboxWNP7"
+        next: "jukeboxWNP7"
     },
     {
         id: "jukeboxWNP7",
         text: '"What\'s new, Pussycat? Whoa, whoa!"',
-        next:"jukeboxWNP8"
+        next: "jukeboxWNP8"
     },
     {
         id: "jukeboxWNP8",
         text: '"Pussycat, Pussycat, you\'re so thrilling<br>And I\'m so willing"',
-        next:"jukeboxWNP9"
+        next: "jukeboxWNP9"
     },
     {
         id: "jukeboxWNP9",
         text: '"To care for you.<br>So go and make up your cute little pussycat eyes!"',
-        next:"jukeboxWNP10"
+        next: "jukeboxWNP10"
     },
     {
         id: "jukeboxWNP10",
         text: '"Pussycat, Pussycat, I love you<br>Yes, I do!<br>You and your pussycat eyes!"',
-        next:"jukeboxWNP11"
+        next: "jukeboxWNP11"
     },
     {
         id: "jukeboxWNP11",
         text: '"...what\'s new, Pussycat? Whoa, whoa!"',
-        next:"jukeboxWNP12"
+        next: "jukeboxWNP12"
     },
     {
         id: "jukeboxWNP12",
         text: '"What\'s new, Pussycat? Whoa, whoa!"',
-        next:"jukeboxWNP13"
+        next: "jukeboxWNP13"
     },
     {
         id: "jukeboxWNP13",
         text: '"Pussycat, Pussycat, you\'re delicious<br>And if my wishes"',
-        next:"jukeboxWNP14"
+        next: "jukeboxWNP14"
     },
     {
         id: "jukeboxWNP14",
         text: '"Can all come true<br>I\'ll soon be kissing your sweet little pussycat lips!"',
-        next:"jukeboxWNP15"
+        next: "jukeboxWNP15"
     },
     {
         id: "jukeboxWNP15",
         text: '"Pussycat, Pussycat, I love you<br>Yes, I do!"',
-        next:"jukeboxWNP16"
+        next: "jukeboxWNP16"
     },
     {
         id: "jukeboxWNP16",
         text: '"You and your pussycat lips!<br>You and your pussycat eyes!<br>You and your pussycat nose!"',
-        next:"jukeboxWNP17"
+        next: "jukeboxWNP17"
     },
     {
         id: "jukeboxWNP17",
         text: '...',
-        next:"jukeboxDrivenAway"
+        next: "jukeboxDrivenAway"
     },
     {
         id: "jukeboxWNPStop",
         text: 'Okay okay. Want to pick another song?',
-        next:"jukeboxChoice"
+        next: "jukeboxChoice"
     },
     {
         id: "jukeboxDrivenAway",
         text: "It seems that your choice in music drove people away.",
-        activate:function(){if(player.progress.timesPlayedWNP == 0) {reloadRoomWithState(1);showDialogue("jukeboxDrivenAway");} player.progress.timesPlayedWNP += 1; }
+        activate: function() {
+            if (player.progress.timesPlayedWNP == 0) {
+                reloadRoomWithState(1);
+                showDialogue("jukeboxDrivenAway");
+            }
+            player.progress.timesPlayedWNP += 1;
+        }
     },
 
 
@@ -804,18 +823,17 @@ var dialogue = [
     },
     {
         id: "vladChoice",
-        choices: [
-            {
-                text:"Who are you?",
-                next:"vladWho"
+        choices: [{
+                text: "Who are you?",
+                next: "vladWho"
             },
             {
-                text:"Teach me a spell or I'll tell everyone what you've done.",
-                next:"vladSpell"
+                text: "Teach me a spell or I'll tell everyone what you've done.",
+                next: "vladSpell"
             },
-            
+
             {
-                text:"[Walk away]"  
+                text: "[Walk away]"
             },
         ],
     },
@@ -832,7 +850,7 @@ var dialogue = [
     {
         id: "vladSpell2",
         text: '[Learned Avada Kedavra!]',
-        activate: function(){player.inventory.hasAvadaKedavra = true}
+        activate: function() { player.inventory.hasAvadaKedavra = true }
     },
     {
         id: "vladDead",
@@ -862,22 +880,21 @@ var dialogue = [
     },
     {
         id: "excaliburChoice",
-        choices: [
-            {
-                text:"Cole",
-                next:"excaliburWho"
+        choices: [{
+                text: "Jose",
+                next: "excaliburWho"
             },
             {
-                text:"Ali",
-                next:"excaliburWho"
+                text: "Ali",
+                next: "excaliburWho"
             },
             {
-                text:"Newt",
-                next:"excaliburWho"
+                text: "Newt",
+                next: "excaliburWho"
             },
             {
-                text:"[Walk away]",  
-                next:"excaliburFool"
+                text: "[Walk away]",
+                next: "excaliburFool"
             },
         ],
     },
@@ -888,22 +905,21 @@ var dialogue = [
     },
     {
         id: "excaliburChoice2",
-        choices: [
-            {
-                text:"Really? Tell me more.",
-                next:"excaliburWho2"
+        choices: [{
+                text: "Really? Tell me more.",
+                next: "excaliburWho2"
             },
             {
-                text:"Wait, I didn't ask about you...",
-                next:"excaliburWho2"
+                text: "Wait, I didn't ask about you...",
+                next: "excaliburWho2"
             },
             {
-                text:"I'm just gonna go...",
-                next:"excaliburFool"
+                text: "I'm just gonna go...",
+                next: "excaliburFool"
             },
             {
-                text:"[Walk away]",  
-                next:"excaliburFool"
+                text: "[Walk away]",
+                next: "excaliburFool"
             },
         ],
     },
@@ -915,18 +931,17 @@ var dialogue = [
 
     {
         id: "excaliburChoice3",
-        choices: [
-            {
-                text:"Yes",
-                next:"excaliburWho3"
+        choices: [{
+                text: "Yes",
+                next: "excaliburWho3"
             },
             {
-                text:"No",
-                next:"excaliburWho3"
+                text: "No",
+                next: "excaliburWho3"
             },
             {
-                text:"[Walk away]",  
-                next:"excaliburFool"
+                text: "[Walk away]",
+                next: "excaliburFool"
             },
         ],
     },
@@ -942,18 +957,17 @@ var dialogue = [
     },
     {
         id: "excaliburChoice3a",
-        choices: [
-            {
-                text:"Wait, wait. Hold on a second.",
-                next:"excaliburWho6"
+        choices: [{
+                text: "Wait, wait. Hold on a second.",
+                next: "excaliburWho6"
             },
             {
-                text:"Can we talk about something else?",
-                next:"excaliburWho6"
+                text: "Can we talk about something else?",
+                next: "excaliburWho6"
             },
             {
-                text:"[Walk away]",  
-                next:"excaliburFool"
+                text: "[Walk away]",
+                next: "excaliburFool"
             },
         ],
     },
@@ -974,30 +988,29 @@ var dialogue = [
     },
     {
         id: "excaliburChoice4",
-        choices: [
-            {
-                text:"1",
-                next:"excaliburWho7"
+        choices: [{
+                text: "1",
+                next: "excaliburWho7"
             },
             {
-                text:"8",
-                next:"excaliburWho7"
+                text: "8",
+                next: "excaliburWho7"
             },
             {
-                text:"9",
-                next:"excaliburWho7"
+                text: "9",
+                next: "excaliburWho7"
             },
             {
-                text:"0xA",
-                next:"excaliburWho7"
+                text: "0xA",
+                next: "excaliburWho7"
             },
             {
-                text:"Stop! This is nonsense!",
-                next:"excaliburWho7"
+                text: "Stop! This is nonsense!",
+                next: "excaliburWho7"
             },
             {
-                text:"[Walk away]",  
-                next:"excaliburFool"
+                text: "[Walk away]",
+                next: "excaliburFool"
             },
         ],
     },
@@ -1008,22 +1021,21 @@ var dialogue = [
     },
     {
         id: "excaliburChoice5",
-        choices: [
-            {
-                text:"Please... stop.",
-                next:"excaliburWho8"
+        choices: [{
+                text: "Please... stop.",
+                next: "excaliburWho8"
             },
             {
-                text:"Go on.",
-                next:"excaliburWho8"
+                text: "Go on.",
+                next: "excaliburWho8"
             },
             {
-                text:"Shut up already!",
-                next:"excaliburWho8"
+                text: "Shut up already!",
+                next: "excaliburWho8"
             },
             {
-                text:"[Walk away]",  
-                next:"excaliburFool"
+                text: "[Walk away]",
+                next: "excaliburFool"
             },
         ],
     },
@@ -1034,22 +1046,21 @@ var dialogue = [
     },
     {
         id: "excaliburChoice6",
-        choices: [
-            {
-                text:"How am I supposed to know that?",
-                next:"excaliburWho8a"
+        choices: [{
+                text: "How am I supposed to know that?",
+                next: "excaliburWho8a"
             },
             {
-                text:"A magical hat?",
-                next:"excaliburWho8a"
+                text: "A magical hat?",
+                next: "excaliburWho8a"
             },
             {
-                text:"Some kind of parasite?",
-                next:"excaliburWho8a"
+                text: "Some kind of parasite?",
+                next: "excaliburWho8a"
             },
             {
-                text:"[Walk away]",  
-                next:"excaliburFool"
+                text: "[Walk away]",
+                next: "excaliburFool"
             },
         ],
     },
@@ -1065,26 +1076,25 @@ var dialogue = [
     },
     {
         id: "excaliburChoice7",
-        choices: [
-            {
-                text:"So what you're trying to say is...",
-                next:"excaliburWho10"
+        choices: [{
+                text: "So what you're trying to say is...",
+                next: "excaliburWho10"
             },
             {
-                text:"SHUT. UP.",
-                next:"excaliburWho10"
+                text: "SHUT. UP.",
+                next: "excaliburWho10"
             },
             {
-                text:"asdgasdg",
-                next:"excaliburWho10"
+                text: "asdgasdg",
+                next: "excaliburWho10"
             },
             {
-                text:"[Walk away]",  
-                next:"excaliburFool"
+                text: "[Walk away]",
+                next: "excaliburFool"
             },
         ],
     },
-    
+
     {
         id: "excaliburWho10",
         text: '"Fool! Who said that I was a chef?"',
@@ -1092,22 +1102,21 @@ var dialogue = [
     },
     {
         id: "excaliburChoice8",
-        choices: [
-            {
-                text:"...",
-                next:"excaliburWho11"
+        choices: [{
+                text: "...",
+                next: "excaliburWho11"
             },
             {
-                text:"...",
-                next:"excaliburWho11"
+                text: "...",
+                next: "excaliburWho11"
             },
             {
-                text:"...",
-                next:"excaliburWho11"
+                text: "...",
+                next: "excaliburWho11"
             },
             {
-                text:"[Walk away]",  
-                next:"excaliburFool"
+                text: "[Walk away]",
+                next: "excaliburFool"
             },
         ],
     },
@@ -1119,26 +1128,26 @@ var dialogue = [
     {
         id: "excaliburSpell",
         text: '[You\'ve learned the Stunning Spell!]',
-        activate: function(){player.inventory.hasStunningSpell = true},
+        activate: function() { player.inventory.hasStunningSpell = true },
     },
     {
         id: "excaliburDone",
         text: 'Leave me, student!',
     },
 
-    
-    
-    
-    
-    
-    
+
+
+
+
+
+
     // ///////////////////////////////////////
     //
     // Janitor's Closet
     //
     // ///////////////////////////////////////
-    
-    
+
+
     {
         id: "janitorDresser",
         text: 'Not much in here... just some hair and a snail. Eww.',
@@ -1147,7 +1156,10 @@ var dialogue = [
     {
         id: "janitorDresser2",
         text: '[Strange hair acquired!]<br>[Snail acquired!]',
-        activate:function() {player.inventory.hasHair = true; player.inventory.hasSnail = true;}
+        activate: function() {
+            player.inventory.hasHair = true;
+            player.inventory.hasSnail = true;
+        }
     },
     {
         id: "janitorEmpty",
@@ -1161,190 +1173,195 @@ var dialogue = [
     {
         id: "janitorPot2",
         text: '[Dog tail acquired!]',
-        activate:function() {player.inventory.hasDogTail = true;}
+        activate: function() { player.inventory.hasDogTail = true; }
     },
-    
-    
-    
-    
+
+
+
+
     // ///////////////////////////////////////
     //
     // Headmaster's Lobby
     //
     // ///////////////////////////////////////
-    
+
     {
         id: "secretaryIntro",
         text: "\"I'm very sorry, but the headmaster is too busy to talk to anyone right now.\"",
-        activate:function(){if(player.inventory.hasStunningSpell) setTimeout(function(){showDialogue("secretaryChoice")},16);}
+        activate: function() { if (player.inventory.hasStunningSpell) setTimeout(function() { showDialogue("secretaryChoice") }, 16); }
     },
     {
         id: "secretaryChoice",
-        choices: [
-            {
-                text:"[Use Stunning Spell]",
-                next:"secretaryStun"
+        choices: [{
+                text: "[Use Stunning Spell]",
+                next: "secretaryStun"
             },
             {
-                text:"[Walk away]",
+                text: "[Walk away]",
             },
         ],
     },
     {
         id: "secretaryStun",
         text: "The secretary is launched back and drops to the floor.",
-        activate:function(){reloadRoomWithState(1)}
+        activate: function() { reloadRoomWithState(1) }
     },
-    
-    
+
+
     // ///////////////////////////////////////
     //
     // Headmaster's Office
     //
     // ///////////////////////////////////////
-    
+
     {
         id: "headmasterIntro",
         text: "\"Hello there little lady. How can I help you?\"",
-        activate: function(){if(player.inventory.hasAvadaKedavra) setTimeout(function(){showDialogue("headmasterChoiceAv"),16}); else setTimeout(function(){showDialogue("headmasterChoice"),16});}
+        activate: function() {
+            if (player.inventory.hasAvadaKedavra) setTimeout(function() { showDialogue("headmasterChoiceAv"), 16 });
+            else setTimeout(function() { showDialogue("headmasterChoice"), 16 });
+        }
     },
     {
         id: "headmasterChoice",
-        choices: [
-            {
-                text:"[Use Stunning Spell]",
-                next:"headmasterStun"
+        choices: [{
+                text: "[Use Stunning Spell]",
+                next: "headmasterStun"
             },
             {
-                text:"[Walk away]",
+                text: "[Walk away]",
             },
         ],
     },
     {
         id: "headmasterChoiceAv",
-        choices: [
-            {
-                text:"[Use Stunning Spell]",
-                next:"headmasterStun"
+        choices: [{
+                text: "[Use Stunning Spell]",
+                next: "headmasterStun"
             },
             {
-                text:"[Use Avada Kedavra]",
-                next:"headmasterAv"
+                text: "[Use Avada Kedavra]",
+                next: "headmasterAv"
             },
             {
-                text:"[Walk away]",
+                text: "[Walk away]",
             },
         ],
     },
     {
         id: "headmasterStun",
         text: "The Headmaster deflects your spell and immediately expells you. You now have no chance to ever return home.",
-        next:"gameOver"
+        next: "gameOver"
     },
     {
         id: "headmasterAv",
         text: "You cast Avada Kedavra at the Headmaster, killing him where he stands.",
-        next:"headmasterAv2"
+        next: "headmasterAv2"
     },
     {
         id: "headmasterAv2",
         text: "Shortly after, you're discovered and sent to Azkaban for your crimes.",
-        next:"gameOver"
+        next: "gameOver"
     },
 
-    
-    
-    
+
+
+
     // Goblin King
-    
+
     {
-    id: "bossIntro",
+        id: "bossIntro",
         text: "\"This was your doing! Don't think I'll let you get away with this!\"",
-        activate: function(){if(player.inventory.hasAvadaKedavra) setTimeout(function(){showDialogue("bossChoiceSpell"),16}); else setTimeout(function(){showDialogue("bossChoiceNoSpell"),16});}
+        activate: function() {
+            if (player.inventory.hasAvadaKedavra) setTimeout(function() { showDialogue("bossChoiceSpell"), 16 });
+            else setTimeout(function() { showDialogue("bossChoiceNoSpell"), 16 });
+        }
     },
     {
         id: "bossChoiceSpell",
-        choices: [
-            {
-                text:"[Use Avada Kedavra]",
-                next:"bossSpell"
+        choices: [{
+                text: "[Use Avada Kedavra]",
+                next: "bossSpell"
             },
             {
-                text:"[Attempt to defend yourself]",
-                next:"bossDefend"
+                text: "[Attempt to defend yourself]",
+                next: "bossDefend"
             },
             {
-                text:"[Run away]",
-                next:"bossRun"
+                text: "[Run away]",
+                next: "bossRun"
             },
         ],
     },
     {
         id: "bossChoiceNoSpell",
-        choices: [
-            {
-                text:"[Attempt to defend yourself]",
-                next:"bossDefend"
+        choices: [{
+                text: "[Attempt to defend yourself]",
+                next: "bossDefend"
             },
             {
-                text:"[Run away]",
-                next:"bossRun"
+                text: "[Run away]",
+                next: "bossRun"
             },
         ],
     },
     {
         id: "bossDefend",
         text: "You do your best to fend off the assault of the Goblin King's meaty fists. It doesn't work. You die.",
-        next:"gameOver"
+        next: "gameOver"
     },
     {
         id: "bossRun",
         text: "You immediately bolt for the exit, but the Goblin King is far faster that you. You die.",
-        next:"gameOver"
+        next: "gameOver"
     },
     {
         id: "bossSpell",
         text: "You quickly cast Avada Kedavra, killing the Goblin King on contact.",
-        next:"bossSpell2"
+        next: "bossSpell2"
     },
     {
         id: "bossSpell2",
         text: "As the life slips away from his body, the world around you begins to fade.",
-        next:"bossSpell3"
+        next: "bossSpell3"
     },
     {
         id: "bossSpell3",
         text: "The warmth of your bed greets you as you wake. Was it all a dream?",
-        activate:function(){loadRoom(findRoom(-1,-1), 400,400);reloadRoomWithState(1);showDialogue("credits");showDialogue("creditsbuffer");}
+        activate: function() {
+            loadRoom(findRoom(-1, -1), 400, 400);
+            reloadRoomWithState(1);
+            showDialogue("credits");
+            showDialogue("creditsbuffer");
+        }
     },
-    
-    
-    
+
+
+
     // ///////////////////////////////////////
     //
     // Professor U
     //
     // ///////////////////////////////////////
-    
-    
+
+
     {
         id: "profUIntro",
         text: "\"Wonderful, a student! Would you like to help me with a project?\"",
-        next:"profUIntroChoice"
+        next: "profUIntroChoice"
     },
     {
         id: "profUIntroChoice",
-        choices: [
-            {
-                text:"Yes",
-                next:"profUIntroYes"
+        choices: [{
+                text: "Yes",
+                next: "profUIntroYes"
             },
             {
-                text:"No",
-                next:"profUIntroNo"
+                text: "No",
+                next: "profUIntroNo"
             },
             {
-                text:"[Walk away]",
+                text: "[Walk away]",
             },
         ],
     },
@@ -1375,7 +1392,7 @@ var dialogue = [
     {
         id: "profUIntroYes3",
         text: "\"Bring me three items that I can use to create the rowdiest, rougest boys.\"",
-        activate:function(){player.progress.startedRRB = true}
+        activate: function() { player.progress.startedRRB = true }
     },
     {
         id: "profUIntroStarted",
@@ -1389,67 +1406,69 @@ var dialogue = [
     {
         id: "profUAllItems2",
         text: "[Acquired Rowdyruff Boys Potion!]",
-        activate:function(){player.inventory.hasRRBPotion = true}
+        activate: function() { player.inventory.hasRRBPotion = true }
     },
     {
         id: "profUIntroPotion",
         text: "\"Go ahead and try out the potion somewhere where they'll be of use.\"",
     },
-    
-    
-    
+
+
+
     // ///////////////////////////////////////
     //
     // Bully
     //
     // ///////////////////////////////////////
 
-    
+
     {
         id: "bullyIntro",
         text: "\"Tunnel snakes rule!\"",
-        next:"bullyIntro2"
+        next: "bullyIntro2"
     },
     {
         id: "bullyIntro2",
         text: "\"We're the rougest, toughest gang in all of Bogwarts! And we don't move for no one.\"",
-        activate: function(){if(player.inventory.hasRRBPotion) setTimeout(function(){showDialogue("bullyChoice"),16}); else setTimeout(function(){showDialogue("bullyNoOptions"),16});}
+        activate: function() {
+            if (player.inventory.hasRRBPotion) setTimeout(function() { showDialogue("bullyChoice"), 16 });
+            else setTimeout(function() { showDialogue("bullyNoOptions"), 16 });
+        }
     },
     {
         id: "bullyChoice",
-        choices: [
-            {
-                text:"[Use Rowdyruff Boys Potion]",
-                next:"bullyUseRRB"
+        choices: [{
+                text: "[Use Rowdyruff Boys Potion]",
+                next: "bullyUseRRB"
             },
             {
-                text:"[Walk away]",
+                text: "[Walk away]",
             },
         ],
     },
     {
         id: "bullyUseRRB",
         text: "You throw the potion at the ground, producing 3 small children.",
-        next:"bullyUseRRB2"
+        next: "bullyUseRRB2"
     },
     {
         id: "bullyUseRRB2",
         text: "They proceed to beat the bullies senseless, then fly off.",
-        activate:function(){reloadRoomWithState(1);}
+        activate: function() { reloadRoomWithState(1); }
     },
     {
         id: "bullyNoOptions",
         text: "It appears you can't get them to move right now.",
     },
-    
-    
-    
+
+
+
     // ///////////////////////////////////////
     //
     // Misc
     //
     // ///////////////////////////////////////
-    
+
     {
         id: "ronHer1",
         text: "\"Wingardium Leviosaaa.\"",
@@ -1459,23 +1478,23 @@ var dialogue = [
         id: "ronHer2",
         text: "\"Stop it Ron, stop.\"",
     },
-    
-    
+
+
     {
         id: "excaliburStudent",
         text: "\"Professor Excalibur has the incredible ability to be in two places at once. I wish I was awesome as him!\"",
     },
-    
+
     {
         id: "treeIntro",
         text: "\"After the Yule Ball, this Vegeta tree will have become 9001 years old, to the dismay of obsessive compulsives everywhere.\"",
     },
-    
+
     {
         id: "tree",
         text: "This tree looks pretty super! Just sayin'.",
     },
-    
+
     {
         id: "doorLocked",
         text: "It's locked.",
@@ -1483,9 +1502,9 @@ var dialogue = [
     {
         id: "unlockDoor",
         text: "You unlock the door with the attic key.",
-        activate: function(){reloadRoomWithState(1)}
+        activate: function() { reloadRoomWithState(1) }
     },
-    
+
     {
         id: "dogWoof",
         text: "*bark*",
@@ -1496,9 +1515,8 @@ var dialogue = [
         text: "*whine*",
     },
     {
-      id: "dogChoice",
-        choices: [
-            {
+        id: "dogChoice",
+        choices: [{
                 text: "Woof!",
                 next: "dogWoof"
             },
@@ -1507,12 +1525,12 @@ var dialogue = [
                 next: "dogWhimper"
             },
             {
-                text:"[Walk away]",
+                text: "[Walk away]",
             },
         ]
     },
-    
-    
+
+
     {
         id: "planksIntro",
         text: "Just a bunch of wooden planks.",
@@ -1520,9 +1538,9 @@ var dialogue = [
     {
         id: "planksMove",
         text: "You move the planks to the side, revealing stairs.",
-        activate:function(){reloadRoomWithState(1)}
+        activate: function() { reloadRoomWithState(1) }
     },
-    
+
     {
         id: "belleDressers",
         text: "The dresser is filled with rope and strange outfits. No rose.",
@@ -1535,10 +1553,10 @@ var dialogue = [
     {
         id: "bellePot2",
         text: "[Acquired Rose!]",
-        activate:function(){player.inventory.hasRose = true;}
+        activate: function() { player.inventory.hasRose = true; }
     },
-    
-    
+
+
     {
         id: "bird",
         text: "\"Great. Everyone is home for the weekend, while I'm stuck here waiting for the headmaster.\"",
@@ -1548,6 +1566,6 @@ var dialogue = [
         id: "bird2",
         text: "\"You shit on one guy's car and all the humans get mad at you.\"",
     },
-    
-    
+
+
 ];

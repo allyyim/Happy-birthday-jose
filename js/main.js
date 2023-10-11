@@ -6,10 +6,10 @@
 
 var gameStarted = false;
 var player = {
-    name: "Cole",
+    name: "Jose",
     creator: "Ali",
-    friend: "Snape",
-    elem: $("#cole"),
+    friend: "Rosie",
+    elem: $("#jose"),
     controlsEnabled: true,
     inDialogue: false,
     isMoving: false,
@@ -60,7 +60,7 @@ var heldSecondDirection = "none";
 
 var loadRoomToThe = "none";
 
-var startRoom = findRoom(-1,-1); 
+var startRoom = findRoom(-1, -1);
 //startRoom = findRoom(3,2);
 //startRoom = findRoom(1,0);
 var currentRoom = startRoom;
@@ -69,7 +69,7 @@ var currentGrid = null;
 
 var currentMusic = "none";
 
-var currentDialogue = {text:""};
+var currentDialogue = { text: "" };
 
 var isActionDown = false;
 
@@ -83,251 +83,247 @@ var isActionDown = false;
 
 
 function evalDirection(direction) {
-    
-    if(player.inDialogue) {
-        if(currentDialogue.lastKey == direction)
+
+    if (player.inDialogue) {
+        if (currentDialogue.lastKey == direction)
             return false;
-        else if(direction == "up" || direction == "down") {
+        else if (direction == "up" || direction == "down") {
             currentDialogue.lastKey = direction;
-            if(direction == "up")
+            if (direction == "up")
                 hightlightDialogeOption(currentDialogue.selected - 1);
-            else if(direction == "down")
+            else if (direction == "down")
                 hightlightDialogeOption(currentDialogue.selected + 1);
             return false;
         }
         return false;
     }
-    
-    if(player.controlsEnabled == false)
+
+    if (player.controlsEnabled == false)
         return false;
-    
-    if(direction != "none") {
-        player.elem.attr("data-direction",direction);
+
+    if (direction != "none") {
+        player.elem.attr("data-direction", direction);
         player.position.direction = direction;
     }
-        
-    
-    if(direction == "right") {
-        if(!(isObjectAt(player.position.tx + 1, player.position.ty) && player.position.ox >= 0))
-            if(player.position.oy > 0) {
-                if(!isObjectAt(player.position.tx + 1, player.position.ty + 1))
+
+
+    if (direction == "right") {
+        if (!(isObjectAt(player.position.tx + 1, player.position.ty) && player.position.ox >= 0))
+            if (player.position.oy > 0) {
+                if (!isObjectAt(player.position.tx + 1, player.position.ty + 1))
                     movePlayer(direction);
-            }
-            else
+            } else
                 movePlayer(direction);
-    } else if(direction == "left") {
-        if(!(isObjectAt(player.position.tx - 1, player.position.ty) && player.position.ox <= 0))
-            if(player.position.oy > 0) {
-                if(!(isObjectAt(player.position.tx - 1, player.position.ty + 1) && player.position.ox <= 0))
+    } else if (direction == "left") {
+        if (!(isObjectAt(player.position.tx - 1, player.position.ty) && player.position.ox <= 0))
+            if (player.position.oy > 0) {
+                if (!(isObjectAt(player.position.tx - 1, player.position.ty + 1) && player.position.ox <= 0))
                     movePlayer(direction);
-            }
-            else
+            } else
                 movePlayer(direction);
-    } else if(direction == "down") {
-        if(!(isObjectAt(player.position.tx, player.position.ty + 1) && player.position.oy >= 0))
-            if(player.position.ox > 0) {
-                if(!isObjectAt(player.position.tx + 1, player.position.ty + 1))
+    } else if (direction == "down") {
+        if (!(isObjectAt(player.position.tx, player.position.ty + 1) && player.position.oy >= 0))
+            if (player.position.ox > 0) {
+                if (!isObjectAt(player.position.tx + 1, player.position.ty + 1))
                     movePlayer(direction);
-            }
-            else
+            } else
                 movePlayer(direction);
-    } else if(direction == "up") {
-        if(!(isObjectAt(player.position.tx, player.position.ty - 1) && player.position.oy <= 0))
-            if(player.position.ox > 0) {
-                if(!(isObjectAt(player.position.tx + 1, player.position.ty - 1) && player.position.oy <= 0))
+    } else if (direction == "up") {
+        if (!(isObjectAt(player.position.tx, player.position.ty - 1) && player.position.oy <= 0))
+            if (player.position.ox > 0) {
+                if (!(isObjectAt(player.position.tx + 1, player.position.ty - 1) && player.position.oy <= 0))
                     movePlayer(direction);
-            }
-            else
+            } else
                 movePlayer(direction);
     }
-    
-    
-    
-    
-    
-    
+
+
+
+
+
+
 }
 
 
 
 function movePlayer(direction) {
-    
-    
-    if(player.inDialogue) {
+
+
+    if (player.inDialogue) {
         return false;
     }
-    
-    
+
+
     player.isMoving = true;
-    player.elem.attr("data-moving","true");
-    player.elem.attr("data-direction",direction);
-    
-    
-    
-    
-    if(direction == "right") {
-        if(player.position.ox < 15) {
+    player.elem.attr("data-moving", "true");
+    player.elem.attr("data-direction", direction);
+
+
+
+
+    if (direction == "right") {
+        if (player.position.ox < 15) {
             player.position.ox += 1;
         } else {
             player.position.ox = 0;
             player.position.tx += 1;
         }
-        if(player.position.tx >= 9 && player.position.ox >= 2 )
+        if (player.position.tx >= 9 && player.position.ox >= 2)
             moveScreen(direction);
-    } else if(direction == "left") {
-        if(player.position.ox > 0) {
+    } else if (direction == "left") {
+        if (player.position.ox > 0) {
             player.position.ox -= 1;
         } else {
             player.position.ox = 15;
             player.position.tx -= 1;
         }
-        if(player.position.tx < 0 && player.position.ox <= 13 )
+        if (player.position.tx < 0 && player.position.ox <= 13)
             moveScreen(direction);
-    } else if(direction == "down") {
-        if(player.position.oy < 15) {
+    } else if (direction == "down") {
+        if (player.position.oy < 15) {
             player.position.oy += 1;
         } else {
             player.position.oy = 0;
             player.position.ty += 1;
         }
-        if(player.position.ty >= 8 && player.position.oy >= 2 )
+        if (player.position.ty >= 8 && player.position.oy >= 2)
             moveScreen(direction);
-    } else if(direction == "up") {
-        if(player.position.oy > 0) {
+    } else if (direction == "up") {
+        if (player.position.oy > 0) {
             player.position.oy -= 1;
         } else {
             player.position.oy = 15;
             player.position.ty -= 1;
         }
-        if(player.position.ty < 0 && player.position.oy <= 13 )
+        if (player.position.ty < 0 && player.position.oy <= 13)
             moveScreen(direction);
     }
     var tmpGoTo = isGoToAt(player.position.tx, player.position.ty);
-    if(tmpGoTo !== false)
+    if (tmpGoTo !== false)
         tmpGoTo();
 }
 
 
 
-function keyCodeString(keycode,e) {
-    if(keycode == 39 || keycode == 68) {
+function keyCodeString(keycode, e) {
+    if (keycode == 39 || keycode == 68) {
         return "right";
-    } else if(keycode == 37 || keycode == 65) {
+    } else if (keycode == 37 || keycode == 65) {
         return "left";
-    } else if(keycode == 38 || keycode == 87) {
+    } else if (keycode == 38 || keycode == 87) {
         return "up";
-    } else if(keycode == 40 || keycode == 83) {
+    } else if (keycode == 40 || keycode == 83) {
         return "down";
-    }  else if(keycode == 16) {
+    } else if (keycode == 16) {
         return "run";
-    } else if(keycode == 69 || keycode == 32) {
-        if(e.type == "keyup")
+    } else if (keycode == 69 || keycode == 32) {
+        if (e.type == "keyup")
             return "action";
         doActivateButton();
         return "none";
     } else {
         return false;
     }
-        
+
 }
 
 
 function keydownEvent(e) {
-    var tmpKey = keyCodeString(e.keyCode,e);
-    if(!gameStarted) return false;
-    if(tmpKey !== false) {
-        if(tmpKey === "run") {
+    var tmpKey = keyCodeString(e.keyCode, e);
+    if (!gameStarted) return false;
+    if (tmpKey !== false) {
+        if (tmpKey === "run") {
             player.isRunning = true;
             tmpKey = "none";
         }
-        if(heldDirection == "none" || heldDirection == tmpKey)
+        if (heldDirection == "none" || heldDirection == tmpKey)
             heldDirection = tmpKey;
         else
             heldSecondDirection = tmpKey;
-        if(heldSecondDirection == heldDirection)
+        if (heldSecondDirection == heldDirection)
             heldSecondDirection = "none";
     }
-    
-        
+
+
 }
 
 function keyupEvent(e) {
-    var tmpKey = keyCodeString(e.keyCode,e);
-    if(!gameStarted) return false;
-    if(tmpKey === "run") {
+    var tmpKey = keyCodeString(e.keyCode, e);
+    if (!gameStarted) return false;
+    if (tmpKey === "run") {
         player.isRunning = false;
         tmpKey = "none";
     }
-    if(player.inDialogue && (tmpKey == "up" || tmpKey == "down"))
+    if (player.inDialogue && (tmpKey == "up" || tmpKey == "down"))
         currentDialogue.lastKey = "none";
-    if(tmpKey == "action") {
+    if (tmpKey == "action") {
         isActionDown = false;
         return false;
     }
-    if(heldDirection != "none" && heldDirection == tmpKey) {
+    if (heldDirection != "none" && heldDirection == tmpKey) {
         heldDirection = "none";
         player.isMoving = false;
-        player.elem.attr("data-moving","false");
+        player.elem.attr("data-moving", "false");
     }
-    if(heldSecondDirection != "none" && heldSecondDirection == tmpKey) {
+    if (heldSecondDirection != "none" && heldSecondDirection == tmpKey) {
         heldSecondDirection = "none";
         player.isMoving = false;
-        player.elem.attr("data-moving","false");
+        player.elem.attr("data-moving", "false");
     }
-        
+
 }
 
 
 function doActivateButton() {
-    if(!gameStarted) {
+    if (!gameStarted) {
         $("a.button").click();
         return false;
     }
 
     var tmpAc1 = null;
     var tmpAc2 = null;
-    if(isActionDown)
+    if (isActionDown)
         return false;
     isActionDown = true;
-    
-    if(player.inDialogue) {
+
+    if (player.inDialogue) {
         progressDialogue();
         return false;
     }
-    
-    if(player.position.direction == "right") {
+
+    if (player.position.direction == "right") {
         tmpAc1 = isActivatorAt(player.position.tx + 1, player.position.ty);
         tmpAc2 = isActivatorAt(player.position.tx + 1, player.position.ty + 1);
-        if(tmpAc1 !== false && player.position.oy < 6) {
+        if (tmpAc1 !== false && player.position.oy < 6) {
             tmpAc1();
-        } else if( player.position.oy >= 6 && tmpAc2 !== false) {
+        } else if (player.position.oy >= 6 && tmpAc2 !== false) {
             tmpAc2();
         }
-    } else if(player.position.direction == "left") {
+    } else if (player.position.direction == "left") {
         tmpAc1 = isActivatorAt(player.position.tx - 1, player.position.ty);
         tmpAc2 = isActivatorAt(player.position.tx - 1, player.position.ty + 1);
-        if(tmpAc1 !== false && player.position.oy < 6) {
+        if (tmpAc1 !== false && player.position.oy < 6) {
             tmpAc1();
-        } else if( player.position.oy >= 6 && tmpAc2 !== false) {
+        } else if (player.position.oy >= 6 && tmpAc2 !== false) {
             tmpAc2();
         }
-    } else if(player.position.direction == "down") {
+    } else if (player.position.direction == "down") {
         tmpAc1 = isActivatorAt(player.position.tx, player.position.ty + 1);
         tmpAc2 = isActivatorAt(player.position.tx + 1, player.position.ty + 1);
-        if(tmpAc1 !== false && player.position.ox < 9) {
+        if (tmpAc1 !== false && player.position.ox < 9) {
             tmpAc1();
-        } else if( player.position.ox >= 9 && tmpAc2 !== false) {
+        } else if (player.position.ox >= 9 && tmpAc2 !== false) {
             tmpAc2();
         }
-    } else if(player.position.direction == "up") {
+    } else if (player.position.direction == "up") {
         tmpAc1 = isActivatorAt(player.position.tx, player.position.ty - 1);
         tmpAc2 = isActivatorAt(player.position.tx + 1, player.position.ty - 1);
-        if(tmpAc1 !== false && player.position.ox < 9) {
+        if (tmpAc1 !== false && player.position.ox < 9) {
             tmpAc1();
-        } else if( player.position.ox >= 9 && tmpAc2 !== false) {
+        } else if (player.position.ox >= 9 && tmpAc2 !== false) {
             tmpAc2();
         }
-    } 
+    }
 }
 
 
@@ -348,11 +344,11 @@ function showDialogue(id) {
     currentDialogue = findDialogueObject(id);
     currentDialogue.selected = 0;
     currentDialogue.lastKey = "none";
-    if(currentDialogue.choices === undefined)
-        $("#dialogue-box").html('<span>'+currentDialogue.text+'</span>');
+    if (currentDialogue.choices === undefined)
+        $("#dialogue-box").html('<span>' + currentDialogue.text + '</span>');
     else {
         var i = 0;
-        for(i = 0; i < currentDialogue.choices.length; i++) {
+        for (i = 0; i < currentDialogue.choices.length; i++) {
             $("#dialogue-box").append('<div>' + currentDialogue.choices[i].text + '</div>');
         }
         hightlightDialogeOption(0);
@@ -362,34 +358,34 @@ function showDialogue(id) {
 
 function findDialogueObject(id) {
     var i = 0;
-    for(i = 0; i < dialogue.length; i++) {
-        if(dialogue[i].id == id)
+    for (i = 0; i < dialogue.length; i++) {
+        if (dialogue[i].id == id)
             return dialogue[i];
     }
     return false;
 }
 
 function progressDialogue() {
-    if(currentDialogue.choices !== undefined) {
+    if (currentDialogue.choices !== undefined) {
         var selectedOption = currentDialogue.choices[currentDialogue.selected];
-        if(selectedOption.activate !== undefined) {
+        if (selectedOption.activate !== undefined) {
             selectedOption.activate();
-            
-        } else if(selectedOption.next !== undefined) {
+
+        } else if (selectedOption.next !== undefined) {
             exitDialogue();
             showDialogue(selectedOption.next);
             return false;
         }
-    } 
-    if(currentDialogue.activate !== undefined) 
+    }
+    if (currentDialogue.activate !== undefined)
         currentDialogue.activate();
-    if(currentDialogue.next === undefined) {
+    if (currentDialogue.next === undefined) {
         exitDialogue();
         return false;
     }
-        
+
     showDialogue(currentDialogue.next);
-    
+
 }
 
 function exitDialogue() {
@@ -399,12 +395,12 @@ function exitDialogue() {
 }
 
 function hightlightDialogeOption(option) {
-    if(currentDialogue.choices === undefined)
+    if (currentDialogue.choices === undefined)
         return false;
     var actualOption = option;
-    if(option < 0)
+    if (option < 0)
         actualOption = currentDialogue.choices.length - 1;
-    else if(option >= currentDialogue.choices.length)
+    else if (option >= currentDialogue.choices.length)
         actualOption = 0;
     currentDialogue.selected = actualOption;
     $("#dialogue-box div").removeClass("highlighted")
@@ -412,7 +408,7 @@ function hightlightDialogeOption(option) {
 }
 
 function wnpText() {
-   return "You've played What's New Pussycat " + player.progress.timesPlayedWNP + "times!"
+    return "You've played What's New Pussycat " + player.progress.timesPlayedWNP + "times!"
 }
 
 
@@ -429,16 +425,16 @@ function moveScreen(direction) {
     console.log(nextRoom);
     var newTX = 0;
     var newTY = 0;
-    if(direction == "right") {
+    if (direction == "right") {
         newTX = 0;
         newTY = player.position.ty;
-    } else if(direction == "left") {
+    } else if (direction == "left") {
         newTX = 9;
         newTY = player.position.ty;
-    } else if(direction == "down") {
+    } else if (direction == "down") {
         newTY = 0;
         newTX = player.position.tx;
-    } else if(direction == "up") {
+    } else if (direction == "up") {
         newTY = 8;
         newTX = player.position.tx;
     }
@@ -447,30 +443,30 @@ function moveScreen(direction) {
 
 
 function getNextRoom(curRoom, dir) {
-    if(dir == "right") {
+    if (dir == "right") {
         return findRoom(curRoom.x + 1, curRoom.y);
     }
-        
-    if(dir == "left") {
+
+    if (dir == "left") {
         return findRoom(curRoom.x - 1, curRoom.y);
     }
-        
-    if(dir == "up") {
+
+    if (dir == "up") {
         return findRoom(curRoom.x, curRoom.y - 1);
     }
-        
-    if(dir == "down") {
+
+    if (dir == "down") {
         return findRoom(curRoom.x, curRoom.y + 1)
     }
-       
+
 }
 
 function findRoom(roomX, roomY) {
-    
+
     var foundRoom = currentRoom;
     var i = 0;
-    for(i = 0; i < rooms.length; i++) {
-        if(rooms[i].x == roomX && rooms[i].y == roomY) {
+    for (i = 0; i < rooms.length; i++) {
+        if (rooms[i].x == roomX && rooms[i].y == roomY) {
             foundRoom = rooms[i];
             //console.log("found room");
         }
@@ -483,8 +479,8 @@ function findObject(objectName) {
 
     var foundObject = null;
     var i = 0;
-    for(i = 0; i < objects.length; i++) {
-        if(objects[i].name == objectName) {
+    for (i = 0; i < objects.length; i++) {
+        if (objects[i].name == objectName) {
             foundObject = objects[i];
             //console.log("found object");
         }
@@ -497,14 +493,14 @@ function loadRoom(room, playerTX, playerTY, playerOX, playerOY) {
     currentRoom = room;
     player.position.tx = playerTX;
     player.position.ty = playerTY;
-    
+
     $("#dialogue-box").removeClass("title");
     $("#dialogue-box").removeClass("story");
-    
+
     player.position.ox = (playerOX != null ? playerOX : 0);
     player.position.oy = (playerOY != null ? playerOY : 0);
     $("#grid-container .grid").remove();
-    $("#grid-container").append('<div class="grid"><div class="floor"></div><div class="objects"></div><div class="walls"></div><div id="cole"></div><div class="location"></div></div>');
+    $("#grid-container").append('<div class="grid"><div class="floor"></div><div class="objects"></div><div class="walls"></div><div id="jose"></div><div class="location"></div></div>');
     currentGrid = {
         floor: $("#grid-container .grid .floor"),
         objects: $("#grid-container .grid .objects"),
@@ -512,110 +508,110 @@ function loadRoom(room, playerTX, playerTY, playerOX, playerOY) {
         elem: $("#grid-container .grid"),
         name: $("#grid-container .grid .location"),
     };
-    player.elem = $("#grid-container .grid #cole");
-    
+    player.elem = $("#grid-container .grid #jose");
+
     // Set environment
     currentGrid.elem.attr("data-environment", room.environment);
-    
+
     // Set location, if available
-    if(currentRoom.name != undefined) {
+    if (currentRoom.name != undefined) {
         currentGrid.name.text(currentRoom.name);
     } else {
         currentGrid.name.remove();
     }
-    
+
     var i = 0;
-    
+
     // Check room state
     currentRoom.state = 0;
-    for(i = 0; i < player.roomStates.length; i++) {
-        if(player.roomStates[i].x == room.x && player.roomStates[i].y == room.y)
+    for (i = 0; i < player.roomStates.length; i++) {
+        if (player.roomStates[i].x == room.x && player.roomStates[i].y == room.y)
             currentRoom.state = player.roomStates[i].state;
     }
-    
-    console.log("roomState: "+ currentRoom.state);
-    
+
+    console.log("roomState: " + currentRoom.state);
+
     // Add walls
-    
+
     // Add objects
-    for(i = 0; i < room.objects.length; i++) {
-        if(room.objects[i].state !== undefined) {
-            if(currentRoom.state == room.objects[i].state)
+    for (i = 0; i < room.objects.length; i++) {
+        if (room.objects[i].state !== undefined) {
+            if (currentRoom.state == room.objects[i].state)
                 addObject(room.objects[i], room.objects[i].x, room.objects[i].y);
-        } else  
+        } else
             addObject(room.objects[i], room.objects[i].x, room.objects[i].y);
     }
-    
+
     $("#debug .room .x").text(currentRoom.x);
     $("#debug .room .y").text(currentRoom.y);
-    
-    
+
+
     // Update music
-    if(currentRoom.music != lastRoom.music || currentRoom.music != currentMusic) {
+    if (currentRoom.music != lastRoom.music || currentRoom.music != currentMusic) {
         currentMusic = currentRoom.music;
         //$("audio.music").each(function(){$(this).get(0).stop;});
         //$("audio.music").trigger("stop");
         var j = 0;
         var music = $("audio.music");
-        for(j = 0; j < music.length; j++) {
+        for (j = 0; j < music.length; j++) {
             console.log($("audio.music")[j].pause());
         }
-        $("audio#"+currentMusic)[0].load();
-        $("audio#"+currentMusic)[0].play();
+        $("audio#" + currentMusic)[0].load();
+        $("audio#" + currentMusic)[0].play();
     }
-    
-    
+
+
     // Per-room overrides
-    if(room.x == -1 && room.y == -1) {
+    if (room.x == -1 && room.y == -1) {
         // Do title screen stuff
         $("#dialogue-box").addClass("title");
 
-        if(currentRoom.state != 1) {
+        if (currentRoom.state != 1) {
             exitDialogue();
             showDialogue("titleScreen");
         }
 
         player.position.tx = 900;
         player.position.ty = 900;
-    } else if(room.x == -2 && room.y == -1) {
+    } else if (room.x == -2 && room.y == -1) {
         // Do story screen stuff
         $("#dialogue-box").addClass("story");
 
-        if(currentRoom.state != 1) {
+        if (currentRoom.state != 1) {
             exitDialogue();
             showDialogue("newbuffer");
         }
-        player.elem.attr("data-direction","awake");
+        player.elem.attr("data-direction", "awake");
         player.position.tx = 3;
         player.position.ty = 5;
         player.position.oy = 4;
     }
-    
+
 
 }
 
 
 function addObject(object, tx, ty) {
-    var html = '<div class="'+object.name;
-    if(object.npc == true)
+    var html = '<div class="' + object.name;
+    if (object.npc == true)
         html += " npc";
-    html += '" data-tw="'+object.width+'" data-th="'+object.height+'" style="left:'+getObjectSize(tx)+';top:'+getObjectSize(ty)+';width:'+getObjectSize(object.width)+';height:'+getObjectSize(object.height)+';"></div>';
+    html += '" data-tw="' + object.width + '" data-th="' + object.height + '" style="left:' + getObjectSize(tx) + ';top:' + getObjectSize(ty) + ';width:' + getObjectSize(object.width) + ';height:' + getObjectSize(object.height) + ';"></div>';
     currentGrid.objects.append(html);
-    
+
 }
 
 
 function setRoomState(room, state) {
     var i = 0;
     var foundIndex = -1;
-    for(i = 0; i < player.roomStates.length; i++) {
-        if(player.roomStates[i].x == room.x && player.roomStates[i].y == room.y)
+    for (i = 0; i < player.roomStates.length; i++) {
+        if (player.roomStates[i].x == room.x && player.roomStates[i].y == room.y)
             foundIndex = i;
     }
-    if(foundIndex > -1)
+    if (foundIndex > -1)
         player.roomStates[foundIndex].state = state;
     else
-        player.roomStates.push({x:room.x,y:room.y,state:state});
+        player.roomStates.push({ x: room.x, y: room.y, state: state });
 }
 
 function reloadRoomWithState(state) {
@@ -632,23 +628,23 @@ function reloadRoomWithState(state) {
 
 
 function isObjectAt(tx, ty) {
-    
+
     var i;
     var scannedObj = null;
 
-    for(i = 0; i < currentRoom.objects.length; i++) {
+    for (i = 0; i < currentRoom.objects.length; i++) {
         scannedObj = currentRoom.objects[i];
         scannedObjXS = scannedObj.x;
         scannedObjXE = scannedObj.x + scannedObj.width - 1;
         scannedObjYS = scannedObj.y;
         scannedObjYE = scannedObj.y + scannedObj.height - 1;
-        if(scannedObj.state == undefined || scannedObj.state == currentRoom.state)
-            if( (tx >= scannedObjXS && tx <= scannedObjXE) && (ty >= scannedObjYS && ty <= scannedObjYE) && scannedObj.solid && (scannedObj.state == undefined || scannedObj.state == currentRoom.state) ) {
+        if (scannedObj.state == undefined || scannedObj.state == currentRoom.state)
+            if ((tx >= scannedObjXS && tx <= scannedObjXE) && (ty >= scannedObjYS && ty <= scannedObjYE) && scannedObj.solid && (scannedObj.state == undefined || scannedObj.state == currentRoom.state)) {
                 return true;
             }
-        
+
     }
-        
+
     return false;
 }
 
@@ -657,14 +653,14 @@ function isGoToAt(tx, ty) {
     var i;
     var scannedObj = null;
 
-    for(i = 0; i < currentRoom.objects.length; i++) {
+    for (i = 0; i < currentRoom.objects.length; i++) {
         scannedObj = currentRoom.objects[i];
         scannedObjXS = scannedObj.x;
         scannedObjXE = scannedObj.x + scannedObj.width - 1;
         scannedObjYS = scannedObj.y;
         scannedObjYE = scannedObj.y + scannedObj.height - 1;
 
-        if( (tx >= scannedObjXS && tx <= scannedObjXE) && (ty >= scannedObjYS && ty <= scannedObjYE) && scannedObj.goto != undefined && (scannedObj.state == undefined || scannedObj.state == currentRoom.state) ) {
+        if ((tx >= scannedObjXS && tx <= scannedObjXE) && (ty >= scannedObjYS && ty <= scannedObjYE) && scannedObj.goto != undefined && (scannedObj.state == undefined || scannedObj.state == currentRoom.state)) {
             return scannedObj.goto;
         }
 
@@ -678,14 +674,14 @@ function isActivatorAt(tx, ty) {
     var i;
     var scannedObj = null;
 
-    for(i = 0; i < currentRoom.objects.length; i++) {
+    for (i = 0; i < currentRoom.objects.length; i++) {
         scannedObj = currentRoom.objects[i];
         scannedObjXS = scannedObj.x;
         scannedObjXE = scannedObj.x + scannedObj.width - 1;
         scannedObjYS = scannedObj.y;
         scannedObjYE = scannedObj.y + scannedObj.height - 1;
 
-        if( (tx >= scannedObjXS && tx <= scannedObjXE) && (ty >= scannedObjYS && ty <= scannedObjYE) && scannedObj.activate != undefined && (scannedObj.state == undefined || scannedObj.state == currentRoom.state) ) {
+        if ((tx >= scannedObjXS && tx <= scannedObjXE) && (ty >= scannedObjYS && ty <= scannedObjYE) && scannedObj.activate != undefined && (scannedObj.state == undefined || scannedObj.state == currentRoom.state)) {
             return scannedObj.activate;
         }
 
@@ -704,14 +700,14 @@ function isActivatorAt(tx, ty) {
 
 function renderFrame(timestamp) {
     updateMovement(timestamp);
-    if(timestamp - lastTimestamp >= (1000 / FPS)) {
+    if (timestamp - lastTimestamp >= (1000 / FPS)) {
         renderPlayer();
         //console.log(timestamp);
-        
+
         updateSteps(timestamp);
         lastTimestamp = timestamp;
-    }    
-    
+    }
+
     window.requestAnimationFrame(renderFrame);
 }
 
@@ -728,13 +724,13 @@ function getObjectSize(width) {
 }
 
 
-function windowResized(){
+function windowResized() {
     viewportW = $(window).width();
     viewportH = $(window).height();
 
-    if(viewportW >= 1200) {
+    if (viewportW >= 1200) {
         zoom = 4;
-    } else if(viewportW >= 600) {
+    } else if (viewportW >= 600) {
         zoom = 2;
     } else {
         zoom = 1;
@@ -745,43 +741,43 @@ function windowResized(){
 
 
 function updateSteps(timestamp) {
-    if(timestamp - lastStepTimestamp >= (1000 / stepFPS)) {
+    if (timestamp - lastStepTimestamp >= (1000 / stepFPS)) {
         lastStepTimestamp = timestamp;
         // Player Update
-        if(player.isMoving) {
-            if(player.elem.attr("data-step") == "2") {
+        if (player.isMoving) {
+            if (player.elem.attr("data-step") == "2") {
                 player.elem.attr("data-step", "1");
             } else {
-                player.elem.attr("data-step","2");
+                player.elem.attr("data-step", "2");
             }
-        }        
+        }
         // NPC Update
-        if($(".npc").attr("data-step") == "2") {
+        if ($(".npc").attr("data-step") == "2") {
             $(".npc").attr("data-step", "1");
         } else {
-            $(".npc").attr("data-step","2");
+            $(".npc").attr("data-step", "2");
         }
     }
 }
 
 function updateMovement(timestamp) {
-    if(timestamp - lastPlayerTimestamp >= (1000 / walkFPS)) {        
+    if (timestamp - lastPlayerTimestamp >= (1000 / walkFPS)) {
         lastPlayerTimestamp = timestamp;
         tryMoveUpdate();
-        if(player.isRunning) {
+        if (player.isRunning) {
             tryMoveUpdate();
         }
     }
 }
-    
-    function tryMoveUpdate() {
-        if(player.controlsEnabled) {
-            evalDirection(heldDirection);
-            if(heldDirection == heldSecondDirection)
-                heldSecondDirection == "none";
-            evalDirection(heldSecondDirection);
-        }
+
+function tryMoveUpdate() {
+    if (player.controlsEnabled) {
+        evalDirection(heldDirection);
+        if (heldDirection == heldSecondDirection)
+            heldSecondDirection == "none";
+        evalDirection(heldSecondDirection);
     }
+}
 
 
 // ///////////////////////////////////////
@@ -793,10 +789,10 @@ function updateMovement(timestamp) {
 (function() {
     var lastTime = 0;
     var vendors = ['webkit', 'moz'];
-    for(var x = 0; x < vendors.length && !window.requestAnimationFrame; ++x) {
-        window.requestAnimationFrame = window[vendors[x]+'RequestAnimationFrame'];
+    for (var x = 0; x < vendors.length && !window.requestAnimationFrame; ++x) {
+        window.requestAnimationFrame = window[vendors[x] + 'RequestAnimationFrame'];
         window.cancelAnimationFrame =
-            window[vendors[x]+'CancelAnimationFrame'] || window[vendors[x]+'CancelRequestAnimationFrame'];
+            window[vendors[x] + 'CancelAnimationFrame'] || window[vendors[x] + 'CancelRequestAnimationFrame'];
     }
 
     if (!window.requestAnimationFrame)
@@ -804,7 +800,7 @@ function updateMovement(timestamp) {
             var currTime = new Date().getTime();
             var timeToCall = Math.max(0, 16 - (currTime - lastTime));
             var id = window.setTimeout(function() { callback(currTime + timeToCall); },
-                                       timeToCall);
+                timeToCall);
             lastTime = currTime + timeToCall;
             return id;
         };
@@ -818,25 +814,25 @@ function updateMovement(timestamp) {
 function updateRoomsWithObjectSizes() {
     var i;
     var j;
-    for(i = 0; i < npcs.length; i++) {
+    for (i = 0; i < npcs.length; i++) {
         npcs[i].npc = true;
         npcs[i].solid = true;
         objects.push(npcs[i]);
     }
-    for(i = 0; i < rooms.length; i++) {
-        for(j = 0; j < rooms[i].objects.length; j++) {
+    for (i = 0; i < rooms.length; i++) {
+        for (j = 0; j < rooms[i].objects.length; j++) {
             var foundObject = findObject(rooms[i].objects[j].name);
-            if(rooms[i].objects[j].width == undefined)
+            if (rooms[i].objects[j].width == undefined)
                 rooms[i].objects[j].width = foundObject.width;
-            if(rooms[i].objects[j].height == undefined)
+            if (rooms[i].objects[j].height == undefined)
                 rooms[i].objects[j].height = foundObject.height;
-            if(rooms[i].objects[j].solid == undefined)
+            if (rooms[i].objects[j].solid == undefined)
                 rooms[i].objects[j].solid = foundObject.solid;
-            if(rooms[i].objects[j].activate == undefined)
+            if (rooms[i].objects[j].activate == undefined)
                 rooms[i].objects[j].activate = foundObject.activate;
-            if(rooms[i].objects[j].state == undefined)
+            if (rooms[i].objects[j].state == undefined)
                 rooms[i].objects[j].state = foundObject.state;
-            if(rooms[i].objects[j].npc == undefined)
+            if (rooms[i].objects[j].npc == undefined)
                 rooms[i].objects[j].npc = foundObject.npc;
         }
     }
@@ -844,24 +840,24 @@ function updateRoomsWithObjectSizes() {
 
 
 function saveGame() {
-    if(currentRoom.x < 0 || currentRoom.y < 0)
+    if (currentRoom.x < 0 || currentRoom.y < 0)
         return false;
     player.elem = null;
     localStorage.saveData = JSON.stringify(player);
-    player.elem = $("#cole");
+    player.elem = $("#jose");
 }
 
 function loadGame() {
-    if(localStorage.saveData === undefined)
+    if (localStorage.saveData === undefined)
         return false;
-        
+
     player = JSON.parse(localStorage.saveData);
-    player.elem = $("#cole");
+    player.elem = $("#jose");
 }
 
 function IsEdge() {
     var is_edge = navigator.userAgent.toLowerCase().indexOf('edge/') > -1;
-    if(is_edge)
+    if (is_edge)
         return true;
     else
         return false;
@@ -875,13 +871,14 @@ function IsEdge() {
 // ///////////////////////////////////////
 
 var lastGamepad;
+
 function bindGamepadKey(gamepad, eventName, id) {
     gamepad.before(eventName, () => {
         keydownEvent({ keyCode: id, type: "keydown" });
     });
     gamepad.after(eventName, () => {
         keyupEvent({ keyCode: id, type: "keyup" });
-    }); 
+    });
 }
 
 
@@ -900,11 +897,15 @@ $(window).keydown(keydownEvent);
 $(window).keyup(keyupEvent);
 updateRoomsWithObjectSizes();
 loadRoom(currentRoom, 1, 1);
-$("audio.music").each(function(){this.volume=0.4});
+$("audio.music").each(function() { this.volume = 0.4 });
 //$("audio.music").each(function(){this.volume=0});
-$("a.button").click(function(){$("#gameboy").removeClass("off"); $("#wrapper").addClass("shift");setTimeout(() => {gameStarted = true}, 1500)});
+$("a.button").click(function() {
+    $("#gameboy").removeClass("off");
+    $("#wrapper").addClass("shift");
+    setTimeout(() => { gameStarted = true }, 1500)
+});
 setInterval(saveGame, 8000);
-if(IsEdge())
+if (IsEdge())
     $("body").addClass("is-edge");
 
 // Controller input
