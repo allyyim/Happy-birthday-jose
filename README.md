@@ -8,6 +8,5 @@
    and *The Legend of Zelda: Oracle of Ages*, and as such are property of *Nintendo* &
    *Capcom*. 
  - Awesome *GameBoy* mockup by BLUEamnesiac from DeviantArt. *GameBoy* is property of *Nintendo*.
- - Music by Dani Sweet.
  - Programming by Alison Yim.
  - JavaScript supplemented by jQuery and [gamecontroller.js](https://github.com/alvaromontoro/gamecontroller.js).
